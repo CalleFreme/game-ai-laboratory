@@ -218,15 +218,6 @@ namespace Day02_AStar.Grid
             return tileToNode.TryGetValue(tileGO, out var node) ? node : null;
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                HandleMouseClick();
-            }
-        }
-
         private void OnEnable()
         {
             // Create an input action that fires when left mouse buttons is pressed
