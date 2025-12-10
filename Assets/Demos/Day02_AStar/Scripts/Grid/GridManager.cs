@@ -113,6 +113,17 @@ namespace Day02_AStar.Grid
             return x >= 0 && x < width && y >= 0 && y < height;
         }
 
+        public void ResetAllNodes()
+        {
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    nodes[x, y].ResetCosts();
+                }
+            }
+        }
+
         public bool TryGetNode(int x, int y, out Node node)
         {
             if (IsWithinBounds(x, y))
