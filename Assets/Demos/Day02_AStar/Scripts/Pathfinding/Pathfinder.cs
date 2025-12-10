@@ -50,7 +50,7 @@ public class Pathfinder : MonoBehaviour
         // Colour open closed and closed sets
         foreach (var node in openSetVisual)
         {
-            if (node.walkable)
+            if (node.Walkable)
             {
                 SetTileMaterialSafe(node, openMaterial);
             }
@@ -58,7 +58,7 @@ public class Pathfinder : MonoBehaviour
 
         foreach (var node in closedSetVisual)
         {
-            if (node.walkable)
+            if (node.Walkable)
             {
                 SetTileMaterialSafe(node, closedMaterial);
             }
@@ -90,7 +90,7 @@ public class Pathfinder : MonoBehaviour
 
     private void SetTileMaterialSafe(Node node, Material mat)
     {
-        var renderer = node.tile.GetComponent<MeshRenderer>();
+        var renderer = node.Tile.GetComponent<MeshRenderer>();
         if (renderer != null && mat != null)
         {
             renderer.material = mat;
@@ -106,17 +106,17 @@ public class Pathfinder : MonoBehaviour
             for (int y = 0; y < gridManager.height; y++)
             {
                 Node n = gridManager.GetNode(x, y);
-                n.gCost = float.PositiveInfinity;
-                n.hCost = 0f;
-                n.parent = null;
+                n.GCost = float.PositiveInfinity;
+                n.HCost = 0f;
+                n.Parent = null;
             }
         }
 
         List<Node> openSet = new List<Node>();
         HashSet<Node> closedSet = new HashSet<Node>();
 
-        startNode.gCost = 0f;
-        startNode.hCost = HeuristicCost(startNode, goalNode);
+        startNode.GCost = 0f;
+        startNode.HCost = HeuristicCost(startNode, goalNode);
         openSet.Add(startNode);
         openVisual?.Add(startNode);
 
@@ -136,20 +136,20 @@ public class Pathfinder : MonoBehaviour
 
             foreach (Node neighbour in gridManager.GetNeighbours(current))
             {
-                if (neighbour == null || !neighbour.walkable)
+                if (neighbour == null || !neighbour.Walkable)
                     continue;
                 if (closedSet.Contains(neighbour))
                     continue;
 
                 // cost(current, neighbour) = 1
-                float tentativeG = current.gCost + 1f;
+                float tentativeG = current.GCost + 1f;
 
-                if (tentativeG < neighbour.gCost)
+                if (tentativeG < neighbour.GCost)
                 {
-                    neighbour.parent = current;
-                    neighbour.gCost = tentativeG; // 
-                    neighbour.hCost = HeuristicCost(neighbour, goalNode);
-                
+                    neighbour.Parent = current;
+                    neighbour.GCost = tentativeG; // 
+                    neighbour.HCost = HeuristicCost(neighbour, goalNode);
+
                     if (!openSet.Contains(neighbour))
                     {
                         openSet.Add(neighbour);
@@ -161,6 +161,7 @@ public class Pathfinder : MonoBehaviour
 
         // No path found
         return null;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
