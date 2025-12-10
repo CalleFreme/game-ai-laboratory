@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering; // NEW
+using UnityEngine.Rendering;
 
 public class Node
 {
@@ -184,17 +183,28 @@ namespace Day02_AStar.Grid
             int y = node.Y;
 
             // 4-neighbour
-            yield return GetNode(x + 1, y);
-            yield return GetNode(x - 1, y);
-            yield return GetNode(x, y + 1);
-            yield return GetNode(x, y - 1);
+            Node right = GetNode(x + 1, y);
+            Node left = GetNode(x - 1, y);
+            Node up = GetNode(x, y + 1);
+            Node down = GetNode(x, y - 1);
+
+            if (right != null) yield return right;
+            if (left != null) yield return left;
+            if (up != null) yield return up;
+            if (down != null) yield return down;
 
             if (allowDiagonals)
             {
-                yield return GetNode(x + 1, y + 1);
-                yield return GetNode(x - 1, y + 1);
-                yield return GetNode(x + 1, y - 1);
-                yield return GetNode(x - 1, y - 1);
+                Node diagRightUp = GetNode(x + 1, y + 1);
+                Node diagLeftUp = GetNode(x - 1, y + 1);
+                Node diagRightDown = GetNode(x + 1, y - 1);
+                Node diagLeftDown = GetNode(x - 1, y - 1);
+
+                // Diagonals should have cost 1.4f (approx sqrt(2)) in pathfinding calculations
+                if (diagRightUp != null) yield return diagRightUp;
+                if (diagLeftUp != null) yield return diagLeftUp;
+                if (diagRightDown != null) yield return diagRightDown;
+                if (diagLeftDown != null) yield return diagLeftDown;
             }
         }
 
