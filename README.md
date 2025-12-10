@@ -2,17 +2,15 @@
 
 ## Project folder structure
 
+
 Assets/
-├─ Common/
-│  ├─ Scripts/
-│  │  └─ Common/
-│  │     ├─ SimplePlayerController.cs
-│  │     └─ SimpleCameraFollow.cs
-│  │
-│  │  (Shared, reusable scripts used by multiple demos)
+├── Common/                                    # Shared, reusable scripts
+│   └── Scripts/
+│       └── Common/
+│           ├── SimplePlayerController.cs
+│           └── SimpleCameraFollow.cs
 │
-└─ Demos/
-   └─ Day01_FSM/
-      └─ Scripts/
-         └─ SimpleChaser.cs
-         (Finite State Machine demo: simple chasing enemy)
+└── Demos/
+    └── Day01_FSM/                            # Finite State Machine demo
+        └── Scripts/
+            └── SimpleChaser.cs               # Simple chasing enemy
