@@ -276,7 +276,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 407204976}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adb25f96b5723ed4ab0d839bdc1359d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 814e6234688abad4eb796d3f9978b1db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameAI.Common.SimplePlayerController
   moveSpeed: 5
@@ -546,7 +546,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 55087f0a3e01ab247a4af7c736ab65b1, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: f03415a74ec6496439e7b607f756d2f6, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &934548508
 GameObject:
@@ -696,11 +696,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 934548508}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a4b90c718078634abef8158ddccce90, type: 3}
+  m_Script: {fileID: 11500000, guid: a665afdbf99883441b49bb2a34de5669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameAI.Day01.SimpleChaser
   target: {fileID: 407204981}
-  chaseRange: 3
+  chaseRange: 4
 --- !u!54 &934548515
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -875,7 +875,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961739749}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95c61fdca8de6434b9d6ab77c9d3bf28, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d781a7a91b728b42bf93444c75d3644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameAI.Common.SimpleCameraFollow
   target: {fileID: 407204981}
