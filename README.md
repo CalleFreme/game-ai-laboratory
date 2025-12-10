@@ -2,7 +2,7 @@
 
 ## Project folder structure
 
-
+```
 Assets/
 ├── Common/                                    # Shared, reusable scripts
 │   └── Scripts/
@@ -14,3 +14,4 @@ Assets/
     └── Day01_FSM/                            # Finite State Machine demo
         └── Scripts/
             └── SimpleChaser.cs               # Simple chasing enemy
+```
