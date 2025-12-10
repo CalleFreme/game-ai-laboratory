@@ -57,7 +57,7 @@ namespace Day02_AStar.Grid
         [SerializeField]
         private Camera inputCamera;
         [SerializeField]
-        private Transform tilesRoot; //
+        private Transform tilesRoot; // If you set this in inspector, make sure you don't inherit the scale of parent
 
         private Node[,] nodes;
         private readonly Dictionary<GameObject, Node> tileToNode = new Dictionary<GameObject, Node>();
