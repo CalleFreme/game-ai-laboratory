@@ -60,7 +60,15 @@ namespace Day02_AStar.Grid
         private Transform tilesRoot; //
 
         private Node[,] nodes;
-        private Dictionary<GameObject, Node> tileToNode = new Dictionary<GameObject, Node>();
+        private readonly Dictionary<GameObject, Node> tileToNode = new Dictionary<GameObject, Node>();
+        /* Some notes on the tile pool:
+         * Object pool for tiles
+         * When regenerating the grid, disable existing tiles and store them here
+         * When creating new tiles, first check this pool for available tiles and reuse
+         * Addresses potential instantiation spikes for large grids
+         * Recycles tiles to improve performance
+         */
+        private readonly Queue<GameObject> tilePool = new Queue<GameObject>();
         private InputAction clickAction;
 
         private void Awake()
@@ -84,7 +92,17 @@ namespace Day02_AStar.Grid
 
         private void GenerateGrid()
         {
-            nodes = new Node[width, height];
+            ClearGrid(); // Clear existing grid if any
+            tileToNode.Clear(); // Clear mapping of tiles to nodes
+
+            if (tilePrefab == null)
+            {
+                Debug.LogError($"{nameof(GridManager)}: Missing tile prefab reference.", this);
+                nodes = null;
+                return;
+            }
+
+            nodes = new Node[width, height]; // Initialize node array
 
             for (int x = 0; x < width; x++)
             {
@@ -92,8 +110,7 @@ namespace Day02_AStar.Grid
                 {
                     // World position for this tile
                     Vector3 worldPos = new Vector3(x * cellSize, 0f, y * cellSize);
-
-                    GameObject tileGO = Instantiate(tilePrefab, worldPos, Quaternion.identity, this.transform);
+                    GameObject tileGO = AcquireTileInstance(worldPos);
                     tileGO.name = $"Tile_{x}_{y}";
 
                     // Create node
@@ -104,6 +121,39 @@ namespace Day02_AStar.Grid
                     // Set initial colour
                     SetTileMaterial(node, walkableMaterial);
                 }
+            }
+        }
+
+        private GameObject AcquireTileInstance(Vector3 worldPos)
+        {
+            // Reuse tile from pool if available, otherwise instantiate new
+            GameObject tileGO = tilePool.Count > 0
+                ? tilePool.Dequeue()
+                : Instantiate(tilePrefab, worldPos, Quaternion.identity, tilesRoot);
+
+            tileGO.transform.SetParent(tilesRoot, false);
+            tileGO.transform.SetPositionAndRotation(worldPos, Quaternion.identity);
+            tileGO.SetActive(true); // Activate tile GameObject
+            return tileGO;
+        }
+
+        private void ClearGrid()
+        {
+            if (nodes == null)
+            {
+                return;
+            }
+
+            foreach (Node node in nodes)
+            {
+                if (node?.Tile == null)
+                {
+                    continue;
+                }
+
+                node.Tile.SetActive(false); // Deactivate tile GameObject
+                node.Tile.transform.SetParent(tilesRoot, false);
+                tilePool.Enqueue(node.Tile); // Add to pool for reuse
             }
         }
 
