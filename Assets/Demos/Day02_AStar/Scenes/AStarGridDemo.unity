@@ -160,15 +160,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 163611398}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3387691cecdf294da2cc143224e1726, type: 3}
+  m_Script: {fileID: 11500000, guid: 222271a3cfffd34419e8fc2db058cab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridManager
   width: 10
   height: 10
   cellSize: 1
-  tilePrefab: {fileID: 892608364238646884, guid: 65cd10f8e2dbedd438112b8c5a9c0a5e, type: 3}
-  walkableMaterial: {fileID: 2100000, guid: 078a81973e0ef6143b65e530f22bdb1d, type: 2}
-  wallMaterial: {fileID: 2100000, guid: dac4dc47ba102794582bf35e358875d6, type: 2}
+  tilePrefab: {fileID: 892608364238646884, guid: bd3b864cbad8117448cc8aedd64b8dc6, type: 3}
+  walkableMaterial: {fileID: 2100000, guid: 00d0b6ae4d11b5d4c978955ff928c047, type: 2}
+  wallMaterial: {fileID: 2100000, guid: bd7911e615c84f947b7ba5b81f2c5a0b, type: 2}
   inputCamera: {fileID: 961739752}
   tilesRoot: {fileID: 0}
 --- !u!1 &203844586
@@ -419,47 +419,47 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4513622199469638750, guid: dfe95a34c515acd448cbb2b14dacab6d, type: 3}
+    - target: {fileID: 4513622199469638750, guid: fd7d07869ad7a8d4a9c3fbefdf1d8275, type: 3}
       propertyPath: m_Name
       value: Agent
       objectReference: {fileID: 0}
-    - target: {fileID: 7374364403770641727, guid: dfe95a34c515acd448cbb2b14dacab6d, type: 3}
+    - target: {fileID: 7374364403770641727, guid: fd7d07869ad7a8d4a9c3fbefdf1d8275, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 7374364403770641727, guid: dfe95a34c515acd448cbb2b14dacab6d, type: 3}
+    - target: {fileID: 7374364403770641727, guid: fd7d07869ad7a8d4a9c3fbefdf1d8275, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7374364403770641727, guid: dfe95a34c515acd448cbb2b14dacab6d, type: 3}
+    - target: {fileID: 7374364403770641727, guid: fd7d07869ad7a8d4a9c3fbefdf1d8275, type: 3}
       propertyPath: m_LocalPosition.z
       value: 1.8729019
       objectReference: {fileID: 0}
-    - target: {fileID: 7374364403770641727, guid: dfe95a34c515acd448cbb2b14dacab6d, type: 3}
+    - target: {fileID: 7374364403770641727, guid: fd7d07869ad7a8d4a9c3fbefdf1d8275, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7374364403770641727, guid: dfe95a34c515acd448cbb2b14dacab6d, type: 3}
+    - target: {fileID: 7374364403770641727, guid: fd7d07869ad7a8d4a9c3fbefdf1d8275, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7374364403770641727, guid: dfe95a34c515acd448cbb2b14dacab6d, type: 3}
+    - target: {fileID: 7374364403770641727, guid: fd7d07869ad7a8d4a9c3fbefdf1d8275, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7374364403770641727, guid: dfe95a34c515acd448cbb2b14dacab6d, type: 3}
+    - target: {fileID: 7374364403770641727, guid: fd7d07869ad7a8d4a9c3fbefdf1d8275, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7374364403770641727, guid: dfe95a34c515acd448cbb2b14dacab6d, type: 3}
+    - target: {fileID: 7374364403770641727, guid: fd7d07869ad7a8d4a9c3fbefdf1d8275, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7374364403770641727, guid: dfe95a34c515acd448cbb2b14dacab6d, type: 3}
+    - target: {fileID: 7374364403770641727, guid: fd7d07869ad7a8d4a9c3fbefdf1d8275, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7374364403770641727, guid: dfe95a34c515acd448cbb2b14dacab6d, type: 3}
+    - target: {fileID: 7374364403770641727, guid: fd7d07869ad7a8d4a9c3fbefdf1d8275, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
@@ -467,13 +467,13 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4513622199469638750, guid: dfe95a34c515acd448cbb2b14dacab6d, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4513622199469638750, guid: fd7d07869ad7a8d4a9c3fbefdf1d8275, type: 3}
       insertIndex: -1
       addedObject: {fileID: 329325107}
-  m_SourcePrefab: {fileID: 100100000, guid: dfe95a34c515acd448cbb2b14dacab6d, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: fd7d07869ad7a8d4a9c3fbefdf1d8275, type: 3}
 --- !u!1 &329325106 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 4513622199469638750, guid: dfe95a34c515acd448cbb2b14dacab6d, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4513622199469638750, guid: fd7d07869ad7a8d4a9c3fbefdf1d8275, type: 3}
   m_PrefabInstance: {fileID: 329325105}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &329325107
@@ -485,7 +485,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 329325106}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59bcc03947604fd498b86b615d92bfa4, type: 3}
+  m_Script: {fileID: 11500000, guid: f8286d04c14929046b41cdae94253ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Day02_AStar.Agents.AgentMover
   pathfinder: {fileID: 1088001462}
@@ -555,7 +555,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0103d6b03c0aab648b811394062bd925, type: 2}
+  - {fileID: 2100000, guid: 06febcb76a151df41973249b7792d987, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -765,15 +765,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1088001461}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41a5d0806125a1f42a3032c836049beb, type: 3}
+  m_Script: {fileID: 11500000, guid: 388a046c6a2674c43a3e033605694ab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pathfinder
   gridManager: {fileID: 163611400}
   startMarker: {fileID: 1123294089}
   goalMarker: {fileID: 626060144}
-  pathMaterial: {fileID: 2100000, guid: 25a0879de1842684b9373c1f32a9c4aa, type: 2}
-  openMaterial: {fileID: 2100000, guid: 078a81973e0ef6143b65e530f22bdb1d, type: 2}
-  closedMaterial: {fileID: 2100000, guid: 55a69f1c70c32894bb16a292c9071c0f, type: 2}
+  pathMaterial: {fileID: 2100000, guid: ab57ea2e4ec8c4e44bb6f37c5d28679e, type: 2}
+  openMaterial: {fileID: 2100000, guid: 00d0b6ae4d11b5d4c978955ff928c047, type: 2}
+  closedMaterial: {fileID: 2100000, guid: 89b4d0d99c124bc44af919e761403f56, type: 2}
 --- !u!4 &1088001463
 Transform:
   m_ObjectHideFlags: 0
@@ -854,7 +854,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5d835a8e95d4d0141a535fe19eb436a5, type: 2}
+  - {fileID: 2100000, guid: 40c79a2b9e77fe446a4c6fdba7f0372e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
