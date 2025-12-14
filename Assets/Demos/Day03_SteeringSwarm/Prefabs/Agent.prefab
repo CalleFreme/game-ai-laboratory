@@ -130,9 +130,23 @@ MonoBehaviour:
   maxSpeed: 5
   maxForce: 10
   slowingRadius: 3
+  stoppingSpeed: 0.1
+  arriveThresholdDistance: 0.5
   separationRadius: 1.5
   separationStrength: 5
+  obstacleAvoidanceRadius: 2
+  obstacleAvoidanceStrength: 10
+  lookAheadDistance: 3
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  groundCheckDistance: 10
+  hoverHeight: 0.5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 128
   arriveWeight: 1
   separationWeight: 1
+  obstacleAvoidanceWeight: 2
   drawDebug: 1
   target: {fileID: 0}

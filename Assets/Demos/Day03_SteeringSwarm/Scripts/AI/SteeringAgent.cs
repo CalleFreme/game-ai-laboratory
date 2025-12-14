@@ -12,27 +12,55 @@ namespace Demos.Day03_SteeringSwarm.Scripts.AI
 
         [Header("Arrive")]
         public float slowingRadius = 3f;
+        [Tooltip("When speed drops below this near target, stop completely")]
+        public float stoppingSpeed = 0.1f;
+        [Tooltip("Distance at which agent is consered 'arrived' and will stop")]
+        public float arriveThresholdDistance = 0.5f;
 
         [Header("Separation")]
         public float separationRadius = 1.5f;
         public float separationStrength = 5f; // How strongly we want to separate from nearby agents
 
+        // Our Obstacle cubes should have BoxCollider by default
+        // We need to create an appropriate Layer for obstacles and assign it in the inspector
+        // 1. Select an obstacle object in the hierarchy
+        // 2. In the Inspector, click on the "Layer" dropdown at the top right
+        // 3. Choose "Add Layer..." and create a new layer named "Obstacle"
+        // 4. Assign the "Obstacle" layer to your obstacle objects
+        // 5. If prompted to "Change children to Obstacle layer?", choose "Yes"
+        // 6. Repeat for all obstacle objects in the scene, or use Prefabs for consistency
+        [Header("Obstacle Avoidance")]
+        public float obstacleAvoidanceRadius = 2f;
+        public float obstacleAvoidanceStrength = 10f;
+        [Tooltip("How far ahead to look for obstacles")]
+        public float lookAheadDistance = 3f;
+        [Tooltip("Layer mask for obstacles")]
+        public LayerMask obstacleLayerMask = ~0; // Default to everything
+
+        // Ground also needs a layer set up for ground following
+        // Follow similar steps as above to create and assign a "Ground" layer
+        [Header("Ground Following")]
+        public float groundCheckDistance = 10f;
+        public float hoverHeight = 0.5f;
+        public LayerMask groundLayer = ~0;
+
         [Header("Weights")]
         public float arriveWeight = 1f;
         public float separationWeight = 1f;
+        public float obstacleAvoidanceWeight = 2f; // Obstacle avoidance is often more important
 
         [Header("Debug")]
         public bool drawDebug = true;
 
-        private Vector3 velocity = Vector3.zero; // Current velocity of the agent
-
+        private Vector3 velocity = Vector3.zero; // Current velocity of the 
         // Optional target for Seek / Arrive behaviors
         public Transform target;
-
         // Static list to keep track of all agents in the scene
         public static List<SteeringAgent> allAgents = new List<SteeringAgent>();
 
         private const float MIN_DISTANCE = 0.01f;
+
+        private bool hasArrived = false;
 
         private void OnEnable()
         {
@@ -47,14 +75,29 @@ namespace Demos.Day03_SteeringSwarm.Scripts.AI
 
         void Update()
         {
+            Vector3 totalSteering = Vector3.zero; // Initialize steering force
+            // 0. Obstacle avoidance
+            Vector3 avoidance = ObstacleAvoidance();
+            totalSteering += avoidance * obstacleAvoidanceWeight;
+
             // 1. Calculate steering force
             // Steering is an acceleration/force that changes velocity
-            Vector3 totalSteering = Vector3.zero; // Initialize steering force
 
             if (target != null)
             {
                 // Use Seek or Arrive towards the target
                 totalSteering += Arrive(target.position, slowingRadius) * arriveWeight;
+
+                // Check if we've arrived
+                float distanceToTarget = FlatDistance(transform.position, target.position);
+                if (distanceToTarget < arriveThresholdDistance && velocity.magnitude < stoppingSpeed)
+                {
+                    hasArrived = true;
+                }
+                else
+                {
+                    hasArrived = false;
+                }
             }
 
             // Add separation if there are neighbours
@@ -77,18 +120,92 @@ namespace Demos.Day03_SteeringSwarm.Scripts.AI
 
             velocity.y = 0f; // Keep movement in the XZ plane
 
+            // Settling behaviour when arrived
+            if (hasArrived)
+            {
+                velocity *= 0.9f; // Lose 10% of speed each frame when arrived
+
+                // If moving very slowly, stop completely
+                if (velocity.magnitude < stoppingSpeed)
+                {
+                    velocity = Vector3.zero;
+                }
+            }
+            else
+            {
+                velocity *= 0.99f; // Natural damping to prevent perpetual motion
+            }
+
             // 5. Move agent based on velocity
             transform.position += velocity * Time.deltaTime; // Need deltaTime again for frame rate independence
 
-            Vector3 pos = transform.position;
-            pos.y = 1f; // Keep on ground plane
-            transform.position = pos;
+            FollowGround();
+
 
             // 6. Face movement direction
             if (velocity.sqrMagnitude > 0.0001f) // If we're moving significantly, face that direction
             {
                 transform.forward = velocity.normalized;
             }
+        }
+
+        private void FollowGround()
+        {
+            Vector3 rayOrigin = transform.position + Vector3.up * 5f; // Start ray above agent
+
+            if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, groundCheckDistance, groundLayer))
+            {
+                Vector3 pos = transform.position;
+                pos.y = hit.point.y + hoverHeight; // Keep on ground plane
+                transform.position = pos;
+            }
+        }
+
+        public Vector3 ObstacleAvoidance()
+        {
+            // Don't avoid if not moving
+            if (velocity.sqrMagnitude < 0.001f)
+                return Vector3.zero;
+
+            Vector3 ahead = velocity.normalized;
+            Vector3 avoidanceForce = Vector3.zero;
+
+            // Cast rays in a fan pattern ahead of the agent
+            float[] angles = { 0f, -30f, 30f, -60f, 60f }; // Straight, left, right, wider left, wider right
+
+            foreach (float angle in angles)
+            {
+                Vector3 direction = Quaternion.Euler(0, angle, 0) * ahead;
+                Ray ray = new Ray(transform.position + Vector3.up * 0.5f, direction);
+
+                if (Physics.Raycast(ray, out RaycastHit hit, lookAheadDistance, obstacleLayerMask))
+                {
+                    // Found an obstacle -> steer away from it
+                    // The closer the obstacle, the stronger the force
+                    float proximity = 1f - (hit.distance / lookAheadDistance);
+
+                    // Steer perpendicular to the hit normal (slide along the wall)
+                    Vector3 avoidDir = Vector3.Cross(Vector3.up, hit.normal).normalized;
+
+                    // Choose the direction that's more aligned with our current velocity
+                    if (Vector3.Dot(avoidDir, velocity) < 0)
+                        avoidDir = -avoidDir;
+
+                    avoidanceForce += avoidDir * proximity * obstacleAvoidanceStrength;
+
+                    if (drawDebug)
+                    {
+                        Debug.DrawRay(ray.origin, direction * hit.distance, Color.red);
+                    }
+                }
+                else if (drawDebug)
+                {
+                    Debug.DrawRay(ray.origin, direction * lookAheadDistance, Color.green);
+                }
+            }
+
+            avoidanceForce.y = 0f; // Keep in XZ plane
+            return avoidanceForce;
         }
 
         public Vector3 Seek(Vector3 targetPosition)
@@ -127,10 +244,10 @@ namespace Demos.Day03_SteeringSwarm.Scripts.AI
             Vector3 myPos = new Vector3(transform.position.x, 0f, transform.position.z);
             Vector3 targetPos = new Vector3(targetPosition.x, 0f, targetPosition.z);
 
-            Vector3 toTarget = targetPos - transform.position;
+            Vector3 toTarget = targetPos - myPos;
             float distance = toTarget.magnitude;
 
-            if (distance < 0.0001f) // Already at target
+            if (distance < arriveThresholdDistance) // Already at target
                 return Vector3.zero;
 
             float desiredSpeed = maxSpeed;
@@ -148,17 +265,15 @@ namespace Demos.Day03_SteeringSwarm.Scripts.AI
             Vector3 separationForce = Vector3.zero;
             int neighborCount = 0;
 
-            // *** FIX: Use flattened position ***
+            // Use flattened position
             Vector3 myPos = new Vector3(transform.position.x, 0f, transform.position.z);
 
             foreach (SteeringAgent other in allAgents)
             {
-                if (other == this) continue; // Skip self
-                if (other == null) continue; // Skip null references
+                if (other == this || other == null) continue; // Skip self
 
-                // Use flattened position for other agent too ***
+                // Use flattened position for other agent too
                 Vector3 otherPos = new Vector3(other.transform.position.x, 0f, other.transform.position.z);
-
                 Vector3 toMe = myPos - otherPos;
                 float distance = toMe.magnitude;
 
@@ -202,17 +317,35 @@ namespace Demos.Day03_SteeringSwarm.Scripts.AI
             return Vector3.zero;
         }
 
+        private float FlatDistance(Vector3 a, Vector3 b)
+        {
+            float dx = a.x - b.x;
+            float dz = a.z - b.z;
+            return Mathf.Sqrt(dx * dx + dz * dz); // Pythagorean theorem in XZ plane
+        }
+
         private void OnDrawGizmosSelected()
         {
             if (!drawDebug) return;
 
-            // Draw velocity
+            // Velocity
             Gizmos.color = Color.green;
             Gizmos.DrawLine(transform.position, transform.position + velocity);
 
-            // Draw separation radius
+            // Separation radius
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, separationRadius);
+
+            // Obstacle avoidance radius
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, obstacleAvoidanceRadius);
+
+            // Arrival threshold
+            if (target != null)
+            {
+                Gizmos.color = hasArrived ? Color.green : Color.cyan;
+                Gizmos.DrawWireSphere(target.position, arriveThresholdDistance);
+            }
         }
     }
 }
