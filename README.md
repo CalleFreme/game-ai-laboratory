@@ -15,12 +15,18 @@ Assets/
 │   │   └── Scripts/
 │   │       └── SimpleChaser.cs                # Simple chasing enemy
 │   │
-│   └── Day02_AStar/                           # Grid-based A* demo
+│   ├── Day02_AStar/                           # Grid-based A* demo
+│   │   └── Scripts/
+│   │       ├── Grid/
+│   │       │   └── GridManager.cs             # Manages the grid layout
+│   │       └── Pathfinding/
+│   │           └── Pathfinder.cs               # Implements A* pathfinding algorithm
+│   └── Day03_SteeringSwarm/                    # Steering behaviors demo
 │       └── Scripts/
-│           ├── Grid/
-│           │   └── GridManager.cs             # Manages the grid layout
-│           └── Pathfinding/
-│               └── Pathfinder.cs               # Implements A* pathfinding algorithm
+│           ├── AI/
+│           |   └── SteeringAgent.cs			 # Steering agent base class
+|		    └── Agents/
+│               └── AgentSpawner.cs        # Agent that seeks a target
 ```
 
 ## Overview
@@ -38,6 +44,12 @@ To get started with this project, clone the repository and open it in Unity. You
 ### Day 02 - Grid-based A* Pathfinding
 
 ### Day 03 - Steering, Seeking, Swarming
+
+- Location: `Assets/Demos/Day03_SteeringSwarm`
+- `SteeringAgent` blends seek/arrive, separation, obstacle avoidance, and ground-following forces to keep the swarm cohesive while navigating obstacles.
+- `AgentSpawner` populates the scene with a configurable flock, optionally wiring each agent to a shared target for synchronized steering drills.
+
+TODO: Add Cohesion and Alignment behaviors to the `SteeringAgent` to complete the classic Boids model.
 
 ### Day 04 - Behavior Trees
 
