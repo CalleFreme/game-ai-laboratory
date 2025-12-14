@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 671866977270694004}
   - component: {fileID: 1912504193936446261}
   - component: {fileID: 7624954752678715420}
+  - component: {fileID: -3472784886878130241}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Untagged
@@ -67,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 96ae56ecdf050d14bbffdc858505f607, type: 2}
+  - {fileID: 2100000, guid: 01738ccebf964624684680fe41dad8f2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -114,3 +115,17 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-3472784886878130241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4513622199469638750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59bcc03947604fd498b86b615d92bfa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Day02_AStar.Agents.AgentMover
+  pathfinder: {fileID: 0}
+  moveSpeed: 2
