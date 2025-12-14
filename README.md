@@ -31,6 +31,19 @@ This repository serves as a practical resource for learning various AI technique
 
 To get started with this project, clone the repository and open it in Unity. You can explore the demos to see how different AI techniques are implemented and experiment with the provided scripts.
 
+## Demos/Lab solutions
+
+### Day 01 - Finite State Machine (FSM)
+
+### Day 02 - Grid-based A* Pathfinding
+
+### Day 03 - Steering, Seeking, Swarming
+
+### Day 04 - Behavior Trees
+
+### Day 05 - Goal Oriented Action Planning (GOAP)
+
+
 ## Contributing
 
 Contributions are welcome! If you have suggestions for improvements or additional demos, please feel free to submit a pull request.
