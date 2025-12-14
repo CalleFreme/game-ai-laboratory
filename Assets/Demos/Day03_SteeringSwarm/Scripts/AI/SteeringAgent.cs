@@ -15,7 +15,7 @@ namespace Demos.Day03_SteeringSwarm.Scripts.AI
         [Tooltip("When speed drops below this near target, stop completely")]
         public float stoppingSpeed = 0.1f;
         [Tooltip("Distance at which agent is consered 'arrived' and will stop")]
-        public float arriveThresholdDistance = 0.5f;
+        public float arrivalTresholdDistance = 0.5f;
 
         [Header("Separation")]
         public float separationRadius = 1.5f;
@@ -90,7 +90,7 @@ namespace Demos.Day03_SteeringSwarm.Scripts.AI
 
                 // Check if we've arrived
                 float distanceToTarget = FlatDistance(transform.position, target.position);
-                if (distanceToTarget < arriveThresholdDistance && velocity.magnitude < stoppingSpeed)
+                if (distanceToTarget < arrivalTresholdDistance && velocity.magnitude < stoppingSpeed)
                 {
                     hasArrived = true;
                 }
@@ -123,7 +123,7 @@ namespace Demos.Day03_SteeringSwarm.Scripts.AI
             // Settling behaviour when arrived
             if (hasArrived)
             {
-                velocity *= 0.9f; // Lose 10% of speed each frame when arrived
+                velocity *= 0.85f; // Lose 15% of speed each frame when arrived
 
                 // If moving very slowly, stop completely
                 if (velocity.magnitude < stoppingSpeed)
@@ -247,7 +247,7 @@ namespace Demos.Day03_SteeringSwarm.Scripts.AI
             Vector3 toTarget = targetPos - myPos;
             float distance = toTarget.magnitude;
 
-            if (distance < arriveThresholdDistance) // Already at target
+            if (distance < arrivalTresholdDistance) // Already at target
                 return Vector3.zero;
 
             float desiredSpeed = maxSpeed;
@@ -344,7 +344,7 @@ namespace Demos.Day03_SteeringSwarm.Scripts.AI
             if (target != null)
             {
                 Gizmos.color = hasArrived ? Color.green : Color.cyan;
-                Gizmos.DrawWireSphere(target.position, arriveThresholdDistance);
+                Gizmos.DrawWireSphere(target.position, arrivalTresholdDistance);
             }
         }
     }
