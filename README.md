@@ -49,7 +49,9 @@ To get started with this project, clone the repository and open it in Unity. You
 - `SteeringAgent` blends seek/arrive, separation, obstacle avoidance, and ground-following forces to keep the swarm cohesive while navigating obstacles.
 - `AgentSpawner` populates the scene with a configurable flock, optionally wiring each agent to a shared target for synchronized steering drills.
 
-TODO: Add Cohesion and Alignment behaviors to the `SteeringAgent` to complete the classic Boids model.
+TODO:
+- Add Cohesion and Alignment behaviors to the `SteeringAgent` to complete the classic Boids model.
+- Fix: Front agent shouldn't care about agents behind it when calculating separation force. Agents moving in the same direction are constantly "steering away" from each other, wasting energy.
 
 ### Day 04 - Behavior Trees
 
