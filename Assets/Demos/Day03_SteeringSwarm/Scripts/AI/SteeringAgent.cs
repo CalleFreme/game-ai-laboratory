@@ -49,7 +49,7 @@ namespace Demos.Day03_SteeringSwarm.Scripts.AI
 
             if (target != null)
             {
-                steeringForce += Seek(target.position);
+                steeringForce += Arrive(target.position, slowingRadius) * arriveWeight;
             }
             //
             // if (AllAgents.Count > 1)
