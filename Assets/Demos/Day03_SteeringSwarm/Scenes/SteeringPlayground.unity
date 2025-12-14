@@ -277,7 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AgentSpawner
   agentPrefab: {fileID: 2749750845243722099, guid: 1229c560f2c976e41ac05c2e6aaedec2, type: 3}
   agentCount: 5
-  spawnAreaSize: {x: 10, y: 10}
+  spawnAreaSize: {x: 20, y: 20}
   sharedTarget: {fileID: 271606945}
 --- !u!1 &271606941
 GameObject:
@@ -499,7 +499,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 1, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
