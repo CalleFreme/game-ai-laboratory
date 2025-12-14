@@ -9,6 +9,10 @@ namespace Demos.Day03_SteeringSwarm.Scripts.Agents
         public int agentCount = 10;
         public Vector2 spawnAreaSize = new Vector2(10f, 10f);
 
+        [Header("Target Assignment")]
+        [Tooltip("Assign a target Transform that all spawned agents will seek/arrive at.")]
+        public Transform sharedTarget;
+
         void Start()
         {
             for (int i = 0; i < agentCount; i++)
@@ -20,7 +24,13 @@ namespace Demos.Day03_SteeringSwarm.Scripts.Agents
                 );
 
                 Vector3 spawnPos = transform.position + offset;
-                Instantiate(agentPrefab, spawnPos, Quaternion.identity);
+                SteeringAgent newAgent = Instantiate(agentPrefab, spawnPos, Quaternion.identity);
+
+                // Assign shared target if specified
+                if (sharedTarget != null)
+                {
+                    newAgent.target = sharedTarget;
+                }
             }
         }
 
@@ -28,11 +38,6 @@ namespace Demos.Day03_SteeringSwarm.Scripts.Agents
         {
             Gizmos.color = Color.cyan;
             Gizmos.DrawWireCube(transform.position, new Vector3(spawnAreaSize.x, 0.1f, spawnAreaSize.y));
-        }
-
-        void Update()
-        {
-
         }
     }
 }

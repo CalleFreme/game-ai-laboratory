@@ -127,3 +127,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535fbb0a7eeb3274caa33deaa3cdaf25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SteeringAgent
+  maxSpeed: 5
+  maxForce: 10
+  slowingRadius: 3
+  separationRadius: 1.5
+  separationStrength: 5
+  arriveWeight: 1
+  separationWeight: 1
+  drawDebug: 1
+  target: {fileID: 0}
